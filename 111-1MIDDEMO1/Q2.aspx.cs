@@ -14,7 +14,42 @@ namespace _111_1MIDDEMO1 {
         };
 
         protected void Page_Load(object sender, EventArgs e) {
+            if (!IsPostBack)
+            { 
+                for (int i_ct = 0; i_ct <s_City.Length; i_ct++)
+                {
+                    ListItem x = new ListItem();
+                    x.Text = s_City[i_ct];
+                    x.Value = s_City[i_ct];
 
+                    dpl_City.Items.Add(x);
+                }
+                mt_GenSecondList();
+            }
+        }
+
+        protected string[,] GetS_Area()
+        {
+            return s_Area;
+        }
+
+        protected void mt_GenSecondList()
+        {
+            int y = dpl_City.SelectedIndex;
+            dpl_Area.Items.Clear();
+            for (int i_ct = 0; i_ct < s_Area.GetLength(1); i_ct++)
+            {
+                ListItem x = new ListItem();
+                x.Text = s_Area[y, i_ct];
+                x.Value = s_Area[y, i_ct];
+
+                dpl_Area.Items.Add(x);
+            }
+        }
+
+        protected void dpl_City_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mt_GenSecondList();
         }
     }
 }
